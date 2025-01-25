@@ -6,7 +6,7 @@ function animal() {
     function createContent() {
         const container = document.createElement('div');
         container.classList.add('mb-2');
-        
+        //create animal form content
         const mb3Name = document.createElement('div');
         mb3Name.classList.add('mb-3');
         mb3Name.innerHTML = '<label for="name" class="form-label">Animal Name</label>' +
@@ -47,14 +47,14 @@ function animal() {
             'Save Animal <i class="fa-solid fa-check"></i>' +
             '</button>';
         container.append(submitBtn);        
-        
+        ///
         form.append(container);
         return form;
     }
     function validate() {
         let valid = true;
-        
-        
+        // validate form
+        // test that name is valid
         const name = form.name.value;
         const eleNameError = form.name.nextElementSibling
 
@@ -66,7 +66,7 @@ function animal() {
             eleNameError.classList.add('d-none');
         }
 
-        
+        // test that breed is valid
         const breed = form.breed.value;
         const eleBreedError = form.breed.nextElementSibling
         if (breed == "") {
@@ -91,16 +91,16 @@ function animal() {
             eleLegsError.classList.add('d-none');
         }
 
-        const eyes = form.eyes.value; 
+        const eyes = form.eyes.value; // check that these are numbers
         const sound = form.sound.value;
-        
+        // return if the form is valid or not
         return valid
     }    
-    
+    // create a handler to deal with the submit event
     function submit() {
-        
+        // validate the form
         const valid = validate();
-        
+        // do stuff if the form is valid
         if (valid) {
             console.log('were good');
 
@@ -126,15 +126,15 @@ function animal() {
                 eleNameError.classList.remove('d-none');
                 eleNameError.textContent = "This animal already exists!";
             }
-            
+            // do nothing if it's not
         } else {
             console.log('were not good');
         }
     }
     
-    
+    // assign a handler to the submit event
     form.addEventListener('submit', function (event) {
-        
+        // prevent the default action from happening
         event.preventDefault();
         submit();
     });

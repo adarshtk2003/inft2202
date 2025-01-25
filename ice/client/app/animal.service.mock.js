@@ -8,10 +8,10 @@ function AnimalService() {
         while(animals.length<300) {
             animals.push({
                 "name": `name ${index++}`,
-                "breed": "Grizzly Bear",
-                "legs": 4,
+                "breed": "Pigeon",
+                "legs": 2,
                 "eyes": 2,
-                "sound": "Moo"
+                "sound": "kuku"
               });
         }
         return animals;
