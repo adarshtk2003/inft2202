@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">Web Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -38,7 +38,7 @@
 
     <!-- Create Product Form -->
     <div class="container mt-4">
-        <h1 class="text-center">Add New Product</h1>
+        <h1 class="text-center">Add to Inventory</h1>
         <form id="create-product-form" novalidate>
             <div class="mb-3">
                 <label for="productName" class="form-label">Product Name</label>
@@ -68,7 +68,9 @@
                 >
                 <div class="text-danger" id="productPriceError"></div>
             </div>
-            <button type="submit" class="btn btn-primary" id="submitButton">Create Product</button>
+            <button 
+                type="submit" class="btn btn-dark" id="submitButton">Create Product
+            </button>
         </form>
     </div>
 
