@@ -22,14 +22,14 @@ class ProductList {
     }
 
     setupEventListeners() {
-        // Items per page change handler
+        
         this.itemsPerPageSelect.addEventListener('change', (e) => {
             this.itemsPerPage = parseInt(e.target.value);
-            this.currentPage = 1; // Reset to first page
+            this.currentPage = 1; 
             this.render();
         });
 
-        // Set initial value
+        
         this.itemsPerPage = parseInt(this.itemsPerPageSelect.value);
     }
 
@@ -72,14 +72,13 @@ class ProductList {
         const totalPages = this.getTotalPages();
         let paginationHTML = '';
 
-        // Previous button
+
         paginationHTML += `
             <li class="page-item ${this.currentPage === 1 ? 'disabled' : ''}">
                 <a class="page-link" href="#" data-page="${this.currentPage - 1}">Previous</a>
             </li>
         `;
 
-        // Page numbers
         for (let i = 1; i <= totalPages; i++) {
             paginationHTML += `
                 <li class="page-item ${i === this.currentPage ? 'active' : ''}">
@@ -88,7 +87,6 @@ class ProductList {
             `;
         }
 
-        // Next button
         paginationHTML += `
             <li class="page-item ${this.currentPage === totalPages ? 'disabled' : ''}">
                 <a class="page-link" href="#" data-page="${this.currentPage + 1}">Next</a>
@@ -97,7 +95,6 @@ class ProductList {
 
         this.paginationElement.innerHTML = paginationHTML;
 
-        // Add click event listeners to pagination buttons
         this.paginationElement.querySelectorAll('.page-link').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -116,10 +113,8 @@ class ProductList {
     }
 }
 
-// Initialize the product list
 const productList = new ProductList();
 
-// Global functions for edit and delete
 window.editProduct = function(id) {
     window.location.href = `create.html?edit=${id}`;
 };
