@@ -1,4 +1,3 @@
-
 import animalService from "../animal.service.js";
 
 async function animal(name) {
