@@ -23,18 +23,21 @@ function AnimalService({ host, user }) {
  *
  */
 AnimalService.prototype.findAnimal = async function(name) {
-    const url = new URL(`/api/animals/${name}`, this.host);
+    const url = new URL(`api/animals/${name}`, this.host);
     const req = new Request(url, {
         headers: this.headers,
         method: 'GET',
     });
     try {
         const res = await fetch(req);
+        if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
         return res.json();
     } catch (err) {
+        console.error("findAnimal error:", err);
         return false;
     }
 }
+
 /*
  *
  */
@@ -76,38 +79,47 @@ AnimalService.prototype.saveAnimal = async function(animals)
 /*
  *
  */
-AnimalService.prototype.updateAnimal = async function(animal) 
-{
-    const url = new URL(`/api/animals`, this.host);
+AnimalService.prototype.updateAnimal = async function(animal) {
+    const url = new URL(`api/animals`, this.host);
+    console.log("Updating Animal:", animal, "URL:", url);
+
     const req = new Request(url, {
         headers: this.headers,
         method: 'PUT',
         body: JSON.stringify(animal)
     });
+
     try {
         const res = await fetch(req);
+        if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
         return res.json();
     } catch (err) {
+        console.error("updateAnimal error:", err);
         return false;
     }
 }
+
 
 /*
  *
  */
 AnimalService.prototype.deleteAnimal = async function(name) {
-    const url = new URL(`/api/animals/${name}`, this.host);
+    const url = new URL(`api/animals/${name}`, this.host);
+    console.log("Deleting Animal:", name, "URL:", url);
+
     const req = new Request(url, {
         headers: this.headers,
         method: 'DELETE',
     });
+
     try {
         const res = await fetch(req);
-        if (res.status === 204) {
+        if (res.status === 200 || res.status === 204) {
             return true;
         }
-        return false;
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
     } catch (err) {
+        console.error("deleteAnimal error:", err);
         return false;
     }
 }
