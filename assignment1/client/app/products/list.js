@@ -100,7 +100,7 @@ class ProductList {
             this.productList.innerHTML = '<tr><td colspan="7" class="text-center">No products available.</td></tr>';
             return;
         }
-
+    
         this.productList.innerHTML = '';
         this.products.forEach(product => {
             console.log('Rendering product:', product); // Debug line
@@ -110,21 +110,21 @@ class ProductList {
                 <td>${product.description || 'N/A'}</td>
                 <td>${product.sound || 'N/A'}</td>
                 <td>$${product.price || '0'}</td>
-                <td>${product.user || 'N/A'}</td>
+                <td>${'100925209'}</td>
                 <td>${product.createTime ? new Date(product.createTime * 1000).toLocaleString() : 'N/A'}</td>
                 <td>
-                    ${product.user === 'your student id' ? `
+                    ${product.user === '100925209' ? `
                         <button class="btn btn-warning btn-sm edit-btn" data-id="${product.id}">Update</button>
                         <button class="btn btn-danger btn-sm delete-btn" data-id="${product.id}">Delete</button>
                     ` : ''}
                 </td>
             `;
-
-            if (product.user === 'your student id') {
+    
+            if (product.user === '123456789') {
                 row.querySelector('.edit-btn')?.addEventListener('click', () => this.editProduct(product.id));
                 row.querySelector('.delete-btn')?.addEventListener('click', () => this.showDeleteModal(product.id));
             }
-
+    
             this.productList.appendChild(row);
         });
     }
