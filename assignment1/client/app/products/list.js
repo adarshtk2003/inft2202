@@ -4,7 +4,7 @@ class ProductList {
     constructor() {
         this.products = [];
         this.currentPage = 1;
-        this.itemsPerPage = 5; // Changed to 5 to match API default
+        this.itemsPerPage = 5; 
         this.productList = document.querySelector('#product-list tbody');
         this.paginationElement = document.getElementById('pagination');
         this.itemsPerPageSelect = document.getElementById('itemsPerPage');
@@ -19,7 +19,7 @@ class ProductList {
     }
 
     getCurrentPageProducts() {
-        return this.products; // The products are already paginated from the service
+        return this.products; // already paginated from the service
     }
 
     loadFromQueryParams() {
