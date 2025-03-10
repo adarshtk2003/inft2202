@@ -1,19 +1,12 @@
-// Name: Adarsh Thekkekulathingal Kuriyachan
-// Student ID: 100925209
-// Course: Web Development - CSS
-// File: create.js
-// Description: Handles product creation and editing for the product shop.
-
-import ProductService from './product.service.mock.js';
+// /client/app/products/create.js
+import ProductService from './product.service.mock.js'; // Changed to mock service
 import Product from './product.js';
 
 const params = new URLSearchParams(window.location.search);
 const editId = params.get('edit');
 let currentProduct = null;
 
-/**
- * Validates the form fields for product creation/update.
- */
+// Function to validate the form
 function validateForm(name, description, stock, price) {
     let isValid = true;
 
@@ -23,36 +16,46 @@ function validateForm(name, description, stock, price) {
     document.getElementById('productStockError').textContent = '';
     document.getElementById('productPriceError').textContent = '';
 
-    // Trim input values
-    name = name.trim();
-    description = description.trim();
-
+    // Validate product name
     if (!name) {
         document.getElementById('productNameError').textContent = 'Product name is required.';
         isValid = false;
     }
 
+    // Validate product description
     if (!description) {
         document.getElementById('productDescriptionError').textContent = 'Product description is required.';
         isValid = false;
     }
 
-    if (isNaN(stock) || stock < 0) {
+    // Validate product stock
+    if (!stock) {
+        document.getElementById('productStockError').textContent = 'Stock is required.';
+        isValid = false;
+    } else if (isNaN(stock)) {
+        document.getElementById('productStockError').textContent = 'Stock must be a number.';
+        isValid = false;
+    } else if (stock < 0) {
         document.getElementById('productStockError').textContent = 'Stock must be a positive number.';
         isValid = false;
     }
 
-    if (isNaN(price) || price < 0 || !(/^\d+(\.\d{1,2})?$/.test(price.toString()))) {
-        document.getElementById('productPriceError').textContent = 'Price must be a positive number with up to 2 decimal places.';
+    // Validate product price
+    if (!price) {
+        document.getElementById('productPriceError').textContent = 'Price is required.';
+        isValid = false;
+    } else if (isNaN(price)) {
+        document.getElementById('productPriceError').textContent = 'Price must be a number.';
+        isValid = false;
+    } else if (price < 0) {
+        document.getElementById('productPriceError').textContent = 'Price must be a positive number.';
         isValid = false;
     }
 
     return isValid;
 }
 
-/**
- * Auto-fills the form when editing a product.
- */
+// Function to auto-fill the form when editing
 function autoFillForm(product) {
     document.getElementById('productName').value = product.name;
     document.getElementById('productDescription').value = product.description;
@@ -62,38 +65,27 @@ function autoFillForm(product) {
     document.querySelector('button[type="submit"]').textContent = 'Save Changes';
 }
 
-// Handle price input formatting (limit to 2 decimal places)
-document.getElementById('productPrice').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/[^\d.]/g, '');
-    const parts = value.split('.');
-    
-    if (parts.length > 2) {
-        value = parts[0] + '.' + parts.slice(1).join('');
-    }
-    
-    if (parts.length > 1) {
-        value = parts[0] + '.' + parts[1].slice(0, 2);
-    }
-    
-    e.target.value = value;
-});
-
-// Fetch existing product details if editing
+// Load product data if editing
 if (editId) {
-    const products = ProductService.getProducts() || [];
-    currentProduct = products.find(p => p.id === editId);
-
-    if (currentProduct) {
-        autoFillForm(currentProduct);
-    }
+    ProductService.getProducts()
+        .then(products => {
+            currentProduct = products.find(p => p.id === editId);
+            if (currentProduct) {
+                autoFillForm(currentProduct);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading product:', error);
+            alert('Failed to load product data. Please try again.');
+        });
 }
 
-// Form submission handler
-document.getElementById('create-product-form').addEventListener('submit', function (event) {
+// Handle form submission
+document.getElementById('create-product-form').addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const name = document.getElementById('productName').value.trim();
-    const description = document.getElementById('productDescription').value.trim();
+    const name = document.getElementById('productName').value;
+    const description = document.getElementById('productDescription').value;
     const stock = parseInt(document.getElementById('productStock').value);
     const price = parseFloat(document.getElementById('productPrice').value);
 
@@ -101,16 +93,20 @@ document.getElementById('create-product-form').addEventListener('submit', functi
         return;
     }
 
-    const newProduct = new Product(name, description, stock, price);
+    const product = new Product(name, description, stock, price);
 
-    if (editId) {
-        newProduct.id = editId;
-        ProductService.updateProduct(editId, newProduct);
-        alert('Product updated successfully!');
-    } else {
-        ProductService.addProduct(newProduct);
-        alert('Product created successfully!');
+    try {
+        if (editId) {
+            product.id = editId;
+            await ProductService.updateProduct(editId, product);
+            alert('Product updated successfully!');
+        } else {
+            await ProductService.addProduct(product);
+            alert('Product created successfully!');
+        }
+        window.location.href = 'list.html';
+    } catch (error) {
+        console.error('Error saving product:', error);
+        alert('Failed to save product. Please try again.');
     }
-
-    window.location.href = 'list.html';
 });
