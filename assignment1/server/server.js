@@ -14,8 +14,6 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(__dirname));
 
-
-// Routes
 app.use('/api/products', productRoutes);
 
 app.listen(port, () => {

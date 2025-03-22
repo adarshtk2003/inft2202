@@ -19,7 +19,7 @@ class ProductList {
     }
 
     getCurrentPageProducts() {
-        return this.products; // already paginated from the service
+        return this.products; 
     }
 
     loadFromQueryParams() {
@@ -73,9 +73,9 @@ class ProductList {
     async loadProducts() {
         try {
             this.showSpinner();
-            console.log('Fetching products from:', ProductService.host); // Debug line
+            console.log('Fetching products from:', ProductService.host); 
             const response = await ProductService.getProducts(this.currentPage, this.itemsPerPage);
-            console.log('Raw API Response:', response); // Debug line
+            console.log('Raw API Response:', response);
 
             if (!response) {
                 throw new Error('No response from API');
@@ -85,7 +85,7 @@ class ProductList {
             this.totalItems = response.total || 0;
             this.totalPages = response.totalPages || 1;
 
-            console.log('Processed products:', this.products); // Debug line
+            console.log('Processed products:', this.products);
             this.render();
             this.hideSpinner();
         } catch (error) {
@@ -103,12 +103,12 @@ class ProductList {
     
         this.productList.innerHTML = '';
         this.products.forEach(product => {
-            console.log('Rendering product:', product); // Debug line
+            console.log('Rendering product:', product); 
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${product.name || 'N/A'}</td>
                 <td>${product.description || 'N/A'}</td>
-                <td>${product.sound || 'N/A'}</td>
+                <td>${product.stock || 'N/A'}</td>
                 <td>$${product.price || '0'}</td>
                 <td>${'100925209'}</td>
                 <td>${product.createTime ? new Date(product.createTime * 1000).toLocaleString() : 'N/A'}</td>
@@ -133,14 +133,12 @@ class ProductList {
         const totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         let paginationHtml = '';
 
-        // Previous button
         paginationHtml += `
             <li class="page-item ${this.currentPage === 1 ? 'disabled' : ''}">
                 <a class="page-link" href="#" data-page="${this.currentPage - 1}">Previous</a>
             </li>
         `;
 
-        // Page numbers
         for (let i = 1; i <= totalPages; i++) {
             paginationHtml += `
                 <li class="page-item ${this.currentPage === i ? 'active' : ''}">
@@ -149,7 +147,6 @@ class ProductList {
             `;
         }
 
-        // Next button
         paginationHtml += `
             <li class="page-item ${this.currentPage === totalPages ? 'disabled' : ''}">
                 <a class="page-link" href="#" data-page="${this.currentPage + 1}">Next</a>
@@ -158,7 +155,6 @@ class ProductList {
 
         this.paginationElement.innerHTML = paginationHtml;
 
-        // Add click event listeners
         this.paginationElement.querySelectorAll('.page-link').forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -204,5 +200,4 @@ class ProductList {
     }
 }
 
-// Initialize the product list
 const productList = new ProductList();

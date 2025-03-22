@@ -14,10 +14,13 @@ router.get('/', (req, res) => {
     res.json(products);
 });
 
-// GET product by ID
-router.get('/:id', (req, res) => {
+// GET product by name
+router.get('/search', (req, res) => {
     const products = JSON.parse(readFileSync(dataPath));
-    const product = products.find(p => p.id === parseInt(req.params.id));
+    const name = req.query.name;
+    if (!name) return res.status(400).json({ message: 'Name query parameter is required' });
+
+    const product = products.find(p => p.name.toLowerCase() === name.toLowerCase());
     if (!product) return res.status(404).json({ message: 'Product not found' });
     res.json(product);
 });
@@ -26,7 +29,6 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     const products = JSON.parse(readFileSync(dataPath));
     const newProduct = {
-        id: products.length + 1,
         ...req.body,
         listedAt: new Date().toISOString()
     };

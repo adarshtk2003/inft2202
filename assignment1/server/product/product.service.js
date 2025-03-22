@@ -1,24 +1,22 @@
 class ProductService {
     constructor() {
-        this.host = 'https://inft2202-server.onrender.com/api/products'; // Your API URL
+        this.host = 'https://inft2202-server.onrender.com/api/products'; 
     }
 
-    // Fetch products with pagination
     async getProducts(page = 1, perPage = 5) {
         try {
-            console.log('Fetching from URL:', this.host); // Debug line
+            console.log('Fetching from URL:', this.host); 
 
-            // Make sure to add query parameters for pagination
             const url = `${this.host}?page=${page}&perPage=${perPage}`;
             const response = await fetch(url);
-            console.log('Raw response:', response); // Debug line
+            console.log('Raw response:', response);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const data = await response.json();
-            console.log('Raw data:', data); // Debug line
+            console.log('Raw data:', data); 
 
             return {
                 products: data.records || [], 
@@ -33,7 +31,6 @@ class ProductService {
         }
     }
 
-    // Update a product
     async updateProduct(id, product) {
         try {
             const url = `${this.host}/${id}`;
@@ -63,7 +60,6 @@ class ProductService {
         }
     }
 
-    // Delete a product
     async deleteProduct(id) {
         try {
             const url = `${this.host}/${id}`;
