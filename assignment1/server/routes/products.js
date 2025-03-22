@@ -38,9 +38,9 @@ router.post('/', (req, res) => {
 });
 
 // PUT update product
-router.put('/:id', (req, res) => {
+router.put('/:name', (req, res) => {
     const products = JSON.parse(readFileSync(dataPath));
-    const index = products.findIndex(p => p.id === parseInt(req.params.id));
+    const index = products.findIndex(p => p.name.toLowerCase() === req.params.name.toLowerCase());
     if (index === -1) return res.status(404).json({ message: 'Product not found' });
     products[index] = { ...products[index], ...req.body };
     writeFileSync(dataPath, JSON.stringify(products, null, 2));
