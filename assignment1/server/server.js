@@ -4,9 +4,16 @@ import productRoutes from './routes/products.js';
 const app = express();
 const port = 3000;
 
-// Middleware
 app.use(express.json());
-app.use(express.static('client'));
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(__dirname));
+
 
 // Routes
 app.use('/api/products', productRoutes);
