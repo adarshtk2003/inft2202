@@ -3,6 +3,7 @@ class ProductService {
         this.host = 'https://inft2202-server.onrender.com/api/products';
     }
 
+    
     async getProducts(page = 1, perPage = 5) {
         try {
             console.log('Fetching from URL:', this.host); // Debug line

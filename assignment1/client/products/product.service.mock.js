@@ -4,6 +4,7 @@
 // File: product.service.mock.js
 // Description: This file contains a mock product service that manages product data using localStorage.
 
+
 // client/app/products/product.service.mock.js
 import Product from './product.js';
 

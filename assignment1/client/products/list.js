@@ -1,5 +1,6 @@
 import ProductService from './product.service.js';
 
+
 class ProductList {
     constructor() {
         this.products = [];
