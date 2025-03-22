@@ -48,13 +48,13 @@ router.put('/:name', (req, res) => {
 });
 
 // DELETE product
-router.delete('/:id', (req, res) => {
+router.delete('/:name', (req, res) => {
     const products = JSON.parse(readFileSync(dataPath));
-    const index = products.findIndex(p => p.id === parseInt(req.params.id));
+    const index = products.findIndex(p => p.name.toLowerCase() === req.params.name.toLowerCase());
     if (index === -1) return res.status(404).json({ message: 'Product not found' });
     products.splice(index, 1);
     writeFileSync(dataPath, JSON.stringify(products, null, 2));
-    res.status(204).send();
+    res.status(200).json({ message: 'Product deleted successfully' });
 });
 
 export default router;
