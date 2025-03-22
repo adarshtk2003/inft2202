@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop",
+    "description": "A high-performance laptop",
+    "stock": 10,
+    "price": 999.99,
+    "listedBy": "Admin",
+    "listedAt": "2025-03-21T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "name": "Smartphone",
+    "description": "A latest model smartphone",
+    "stock": 20,
+    "price": 599.99,
+    "listedBy": "Admin",
+    "listedAt": "2025-03-21T10:00:00Z"
+  },
+  {
+    "id": 3,
+    "name": "New Product",
+    "description": "A description of the new product",
+    "stock": 50,
+    "price": 199.99,
+    "listedBy": "Admin",
+    "listedAt": "2025-03-21T18:03:47.269Z"
+  }
+]
