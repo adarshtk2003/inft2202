@@ -12,6 +12,7 @@ class ProductService {
         this.products = this.loadProducts();
     }
 
+    
     loadProducts() {
         const products = localStorage.getItem('products');
         return products ? JSON.parse(products).map(p => {

@@ -4,6 +4,7 @@
 // File: product.js
 // Description: This file defines the Product constructor function for the product shop.
 
+
 // server/app/products/product.js
 function Product(name, description, stock, price, owner = null) {
     this.name = name;

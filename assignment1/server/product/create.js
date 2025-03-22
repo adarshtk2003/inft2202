@@ -110,3 +110,4 @@ document.getElementById('create-product-form').addEventListener('submit', async 
         alert('Failed to save product. Please try again.');
     }
 });
+
