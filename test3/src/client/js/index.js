@@ -87,3 +87,4 @@ function insertMoviesIntoTable(table, movies) {
         row.insertCell().textContent = movie.rating;
     });
 }
+
